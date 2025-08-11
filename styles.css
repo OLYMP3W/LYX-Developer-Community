@@ -1,1 +1,127 @@
 
+        /* Définition des couleurs principales et des animations */
+        :root {
+            --lyx-black: #000000;
+            --lyx-dark-blue: #0A1C3C;
+            --lyx-futuristic-blue: #051021;
+            --lyx-cyan-accent: #00FFF0;
+            --lyx-text-color: #F9FAFB;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--lyx-futuristic-blue);
+            color: var(--lyx-text-color);
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .glow-text {
+            text-shadow: 0 0 5px var(--lyx-cyan-accent), 0 0 10px var(--lyx-cyan-accent);
+        }
+        .faint-glow-text {
+            text-shadow: 0 0 2px rgba(0, 255, 240, 0.4), 0 0 5px rgba(0, 255, 240, 0.15);
+        }
+        
+        .btn-primary, .btn-secondary {
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+        }
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--lyx-cyan-accent);
+            background-color: var(--lyx-cyan-accent);
+            color: var(--lyx-futuristic-blue);
+        }
+        
+        /* Animation de défilement pour les logos partenaires */
+        @keyframes scroll-logos {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        .logo-carousel-track {
+            display: flex;
+            gap: 4rem;
+            animation: scroll-logos 30s linear infinite;
+        }
+        .logo-carousel:hover .logo-carousel-track {
+            animation-play-state: paused;
+        }
+        .phone-mockup {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background: #0C2133;
+            border: 4px solid var(--lyx-cyan-accent);
+            border-radius: 40px;
+            box-shadow: 0 0 8px rgba(0, 255, 240, 0.4), 0 0 15px rgba(0, 255, 240, 0.15);
+            overflow: hidden;
+            flex-shrink: 0;
+            transition: all 0.5s ease-in-out;
+            transform: scale(1);
+        }
+        .phone-mockup:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 0 20px var(--lyx-cyan-accent), 0 0 40px rgba(0, 255, 240, 0.3);
+        }
+        .phone-mockup-screen {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 28px;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Canvas pour l'animation 3D */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .about-section-bg {
+            background: radial-gradient(circle at center, rgba(0, 255, 240, 0.1) 0%, rgba(5, 16, 33, 0) 60%);
+        }
+
+        /* Animations pour les mascottes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .mascot-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        /* Style spécifique pour les images de mascotte pour le positionnement */
+        img.mascot {
+            position: absolute;
+            opacity: 0.6; /* Opacité ajustée pour la visibilité */
+            /* Tailwind classes w-40 h-auto top-[40%] etc. already handle sizing and positioning */
+        }
+
+        /* Nouveaux arrière-plans pour les sections */
+        #app-features {
+            background: radial-gradient(circle at center, var(--lyx-dark-blue) 0%, var(--lyx-futuristic-blue) 70%);
+        }
+
+        #jarris-ai {
+            background: linear-gradient(135deg, var(--lyx-futuristic-blue) 0%, var(--lyx-dark-blue) 70%, var(--lyx-futuristic-blue) 100%);
+        }
+
+        #projects {
+            background: radial-gradient(ellipse at center, rgba(0, 255, 240, 0.05) 0%, rgba(5, 16, 33, 0.8) 70%, var(--lyx-futuristic-blue) 100%);
+        }
