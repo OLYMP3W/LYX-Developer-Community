@@ -13,151 +13,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Three.js pour l'animation 3D -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <style>
-        /* Définition des couleurs principales et des animations */
-        :root {
-            --lyx-black: #000000;
-            --lyx-dark-blue: #0A1C3C;
-            --lyx-futuristic-blue: #051021;
-            --lyx-cyan-accent: #00FFF0;
-            --lyx-text-color: #F9FAFB;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--lyx-futuristic-blue);
-            color: var(--lyx-text-color);
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Effet de lueur futuriste pour le texte et les éléments */
-        .glow-text {
-            text-shadow: 0 0 5px var(--lyx-cyan-accent), 0 0 10px var(--lyx-cyan-accent);
-        }
-
-        /* Lueur plus subtile pour les titres importants */
-        .faint-glow-text {
-            text-shadow: 0 0 2px rgba(0, 255, 240, 0.4), 0 0 5px rgba(0, 255, 240, 0.15);
-        }
-        
-        /* Animation pour les boutons d'action */
-        .btn-primary, .btn-secondary {
-            transition: all 0.3s ease-in-out;
-            transform: scale(1);
-        }
-        .btn-primary:hover, .btn-secondary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px var(--lyx-cyan-accent);
-            background-color: var(--lyx-cyan-accent);
-            color: var(--lyx-futuristic-blue);
-        }
-        
-        /* Animation de défilement pour les logos partenaires */
-        @keyframes scroll-logos {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-        .logo-carousel-track {
-            display: flex;
-            gap: 4rem;
-            animation: scroll-logos 30s linear infinite;
-        }
-        .logo-carousel:hover .logo-carousel-track {
-            animation-play-state: paused;
-        }
-        
-        /* Style pour le mockup de téléphone */
-        .phone-mockup {
-            position: relative;
-            width: 300px;
-            height: 600px;
-            background: #0C2133;
-            border: 4px solid var(--lyx-cyan-accent);
-            border-radius: 40px;
-            box-shadow: 0 0 8px rgba(0, 255, 240, 0.4), 0 0 15px rgba(0, 255, 240, 0.15);
-            overflow: hidden;
-            flex-shrink: 0;
-            transition: all 0.5s ease-in-out;
-            transform: scale(1);
-        }
-        .phone-mockup:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 0 20px var(--lyx-cyan-accent), 0 0 40px rgba(0, 255, 240, 0.3);
-        }
-        .phone-mockup-screen {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 28px;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        /* Canvas pour l'animation 3D */
-        #three-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Styles d'animation pour l'apparition des éléments */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .animate-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Nouvel arrière-plan pour la section "À propos" */
-        .about-section-bg {
-            background: radial-gradient(circle at center, rgba(0, 255, 240, 0.1) 0%, rgba(5, 16, 33, 0) 60%);
-        }
-
-        /* Animations pour les mascottes */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-          
-        }
-
-        .mascot-float {
-            animation: float 3s ease-in-out infinite;
-            opacity: 100%;
-        }
-    </style>
+    <!-- Script pour les animations Lottie (dotLottie Web Component) - Gardé pour un usage futur si besoin -->
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <!-- Canvas pour l'animation Three.js en arrière-plan -->
     <canvas id="three-canvas"></canvas>
-
-    <!-- Contenu principal du site -->
     <div id="main-content" class="min-h-screen relative z-10">
         <!-- En-tête de navigation -->
         <header class="flex items-center justify-between p-6 md:px-12 bg-lyx-dark-blue backdrop-blur-sm bg-opacity-70 fixed top-0 left-0 w-full z-20">
             <div class="flex items-center space-x-4">
-                <!-- Espace réservé pour votre logo. Remplacez l'URL par l'adresse de votre logo. -->
+                <!-- Espace réservé pour le logo.. -->
                 <img src="https://placehold.co/100x40/0A1C3C/00FFF0?text=YOUR+LOGO" alt="Votre logo" class="h-10 w-auto">
             </div>
             <nav class="hidden md:flex space-x-8">
                 <a href="#about" class="hover:text-lyx-cyan-accent transition-colors duration-300">À propos</a>
                 <a href="#app-features" class="hover:text-lyx-cyan-accent transition-colors duration-300">L'Application</a>
-                <a href="#partners" class="hover:text-lyx-cyan-accent transition-colors duration-300">Partenaires</a>
-                <a href="#projects" class="hover:text-lyx-cyan-accent transition-colors duration-300">Projets</a>
+                <a href="#jarris-ai" class="hover:text-lyx-cyan-accent transition-colors duration-300">Jarris</a>
+                <a href="#career-opportunities" class="hover:text-lyx-cyan-accent transition-colors duration-300">Carrières</a>
                 <a href="#contact" class="hover:text-lyx-cyan-accent transition-colors duration-300">Rejoindre</a>
             </nav>
             <div class="md:hidden">
-                <!-- Icône de menu hamburger pour mobile -->
+                <!-- menu hamburger pour mobile -->
                 <button id="menu-button" class="text-lyx-text-color focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -175,16 +54,23 @@
             <a href="#about" class="hover:text-lyx-cyan-accent transition-colors duration-300">À propos</a>
             <a href="#app-features" class="hover:text-lyx-cyan-accent transition-colors duration-300">L'Application</a>
             <a href="#partners" class="hover:text-lyx-cyan-accent transition-colors duration-300">Partenaires</a>
+            <a href="#app-showcase" class="hover:text-lyx-cyan-accent transition-colors duration-300">Fonctionnalités Clés</a>
+            <a href="#code-editor" class="hover:text-lyx-cyan-accent transition-colors duration-300">Éditeur Collaboratif</a>
+            <a href="#jarris-ai" class="hover:text-lyx-cyan-accent transition-colors duration-300">Jarris, votre IA</a>
+            <a href="#project-details" class="hover:text-lyx-cyan-accent transition-colors duration-300">Gestion de Projets</a>
+            <a href="#career-opportunities" class="hover:text-lyx-cyan-accent transition-colors duration-300">Carrières</a>
+            <a href="#blog-news" class="hover:text-lyx-cyan-accent transition-colors duration-300">Blog</a>
+            <a href="#app-versions" class="hover:text-lyx-cyan-accent transition-colors duration-300">Téléchargements</a>
             <a href="#projects" class="hover:text-lyx-cyan-accent transition-colors duration-300">Projets</a>
+            <a href="#help-center" class="hover:text-lyx-cyan-accent transition-colors duration-300">Aide</a>
             <a href="#contact" class="hover:text-lyx-cyan-accent transition-colors duration-300">Rejoindre</a>
         </div>
 
-        <!-- Section À propos (maintenant la première section visible) -->
+        <!-- Section À propos-->
         <section id="about" class="min-h-screen pt-28 pb-20 px-8 lg:px-24 bg-lyx-futuristic-blue text-center flex items-center justify-center relative about-section-bg">
             <div class="max-w-6xl mx-auto relative z-10">
-                <!-- Mascotte sur la gauche, positionnée absolument -->
-                <!-- REMPLACEZ LA SOURCE (src) CI-DESSOUS PAR L'URL DE VOTRE GIF -->
-                <img src="images/Energy Robot.gif" style="width: 30%;" alt="Mascotte LYX" class="absolute hidden lg:block w-40 h-auto top-[40%] -left-20 transform -translate-y-1/2 opacity-100 mascot-float">
+                <!-- Mascotte 1 sur la gauche, positionnée absolument -->
+                <img src="images/Energy Robot.gif" alt="Mascotte LYX" class="mascot hidden lg:block w-40 h-auto top-[40%] -left-10 transform -translate-y-1/2 mascot-float" style="width: 200px; height: 230px; animation-delay: 0s;opacity: 100%;">
                 <h1 class="text-5xl md:text-7xl font-extrabold mb-4 faint-glow-text animate-on-scroll">
                     La place des développeurs.
                 </h1>
@@ -198,7 +84,7 @@
                             Rejoindre le Discord
                         </span>
                     </a>
-                    <a href="#download" class="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-lyx-cyan-accent text-lyx-cyan-accent font-semibold rounded-full transition-all duration-300 btn-secondary" id="download">
+                    <a href="#app-versions" class="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-lyx-cyan-accent text-lyx-cyan-accent font-semibold rounded-full transition-all duration-300 btn-secondary">
                         <span class="flex items-center justify-center">
                             <i class="fas fa-download mr-2"></i>
                             Télécharger l'application
@@ -223,16 +109,22 @@
             </div>
         </section>
         
-        <!-- Nouvelle section pour expliquer l'application -->
-        <section id="app-features" class="py-20 px-8 lg:px-24 bg-lyx-dark-blue text-center relative">
+        <!-- Section pour expliquer l'écosystème de l'application -->
+        <section id="app-features" class="py-20 px-8 lg:px-24 text-center relative">
             <div class="relative z-10">
-                <!-- Mascotte sur la droite, positionnée absolument -->
-                <!-- REMPLACEZ LA SOURCE (src) CI-DESSOUS PAR L'URL DE VOTRE GIF -->
-                <img src="images/Robot.gif" style="width: 15%;" alt="Mascotte LYX" class="absolute hidden lg:block w-40 h-auto top-[60%] -right-20 transform -translate-y-1/2 opacity-100 mascot-float" style="animation-delay: 0.5s;">
+                <!-- Mascotte 2 sur la droite, positionnée absolument -->
+                <img src="" alt="Mascotte LYX" class="mascot hidden lg:block w-40 h-auto top-[60%] -right-20 transform -translate-y-1/2 mascot-float" style="width: 200px; height: 300px; animation-delay: 0.5s;opacity: 100%;">
                 <h2 class="text-4xl font-bold mb-4 faint-glow-text animate-on-scroll">Découvrez notre écosystème</h2>
                 <p class="text-lg text-gray-300 mb-12 max-w-4xl mx-auto animate-on-scroll">
                     L'application LYX est votre centre de commande personnel pour la croissance, la collaboration et l'innovation. Conçue pour les développeurs, par des développeurs.
                 </p>
+                <!-- Nouveau bloc pour le GIF de l'écosystème -->
+                <div class="relative w-full max-w-5xl mx-auto bg-lyx-futuristic-blue rounded-xl shadow-lg p-6 lg:p-12 border-2 border-lyx-cyan-accent overflow-hidden mb-12 animate-on-scroll">
+              
+                    <img src="https://placehold.co/800x450/0A1C3C/00FFF0?text=GIF+Ecosystème+App" alt="Écosystème de l'application" class="w-full h-auto rounded-lg object-contain">
+                    <div class="absolute inset-0 border-4 border-transparent rounded-xl pointer-events-none" style="box-shadow: 0 0 25px rgba(0, 255, 240, 0.4) inset, 0 0 10px rgba(0, 255, 240, 0.2);"></div>
+                </div>
+
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
                     <div class="bg-lyx-futuristic-blue p-8 rounded-xl shadow-lg animate-on-scroll">
                         <i class="fas fa-handshake text-4xl text-lyx-cyan-accent mb-4"></i>
@@ -255,20 +147,15 @@
                         <p class="text-gray-400">Mettez vos compétences à l'épreuve lors de challenges de code et d'hackathons stimulants. Gagnez en expérience et en visibilité.</p>
                     </div>
                     <div class="bg-lyx-futuristic-blue p-8 rounded-xl shadow-lg animate-on-scroll">
-                        <i class="fas fa-tools text-4xl text-lyx-cyan-accent mb-4"></i>
+                        <i class="fas fa-toolbox text-4xl text-lyx-cyan-accent mb-4"></i>
                         <h3 class="text-2xl font-semibold mb-2 faint-glow-text">La Boîte à Outils</h3>
                         <p class="text-gray-400">Une librairie de logiciels et d'outils essentiels, soigneusement sélectionnés pour booster votre productivité au quotidien.</p>
-                    </div>
-                    <div class="bg-lyx-futuristic-blue p-8 rounded-xl shadow-lg animate-on-scroll">
-                        <i class="fas fa-chart-line text-4xl text-lyx-cyan-accent mb-4"></i>
-                        <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Carrières & Opportunités</h3>
-                        <p class="text-gray-400">Accédez à un tableau d'offres d'emplois, de stages et de missions freelance exclusives, adaptées à votre profil.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section Partenaires (avec défilement des logos) -->
+        <!-- avec défilement des logos-->
         <section id="partners" class="py-12 px-8 lg:px-24 bg-lyx-dark-blue text-center relative overflow-hidden">
             <div class="relative z-10">
                 <h2 class="text-3xl font-bold mb-8 relative inline-block faint-glow-text animate-on-scroll">
@@ -277,14 +164,14 @@
             </div>
             <div class="relative w-full overflow-hidden whitespace-nowrap logo-carousel mt-8 animate-on-scroll">
                 <div class="logo-carousel-track">
-                    <!-- Logos partenaires (remplacer avec les URLs réelles) -->
+                    <!-- Logos partenaires-->
                     <img src="https://placehold.co/150x50/0C2133/00FFF0?text=Devpost" alt="Logo Devpost" class="h-12 w-auto filter grayscale opacity-70 hover:opacity-100 transition-opacity duration-300">
                     <img src="https://placehold.co/150x50/0C2133/00FFF0?text=OpenClassrooms" alt="Logo OpenClassrooms" class="h-12 w-auto filter grayscale opacity-70 hover:opacity-100 transition-opacity duration-300">
                     <img src="https://placehold.co/150x50/0C2133/00FFF0?text=Polytechnique" alt="Logo Polytechnique" class="h-12 w-auto filter grayscale opacity-70 hover:opacity-100 transition-opacity duration-300">
                     <img src="https://placehold.co/150x50/0C2133/00FFF0?text=42_School" alt="Logo 42 School" class="h-12 w-auto filter grayscale opacity-70 hover:opacity-100 transition-opacity duration-300">
                     <img src="https://placehold.co/150x50/0C2133/00FFF0?text=Harvard_CS50" alt="Logo Harvard CS50" class="h-12 w-auto filter grayscale opacity-70 hover:opacity-100 transition-opacity duration-300">
                     <img src="https://placehold.co/150x50/0C2133/00FFF0?text=MIT" alt="Logo MIT" class="h-12 w-auto filter grayscale opacity-70 hover:opacity-100 transition-opacity duration-300">
-                    <!-- Duplication des logos pour l'effet de défilement continu -->
+                    <!-- Duplication des logos-->
                     <img src="https://placehold.co/150x50/0C2133/00FFF0?text=Devpost" alt="Logo Devpost" class="h-12 w-auto filter grayscale opacity-70 hover:opacity-100 transition-opacity duration-300">
                     <img src="https://placehold.co/150x50/0C2133/00FFF0?text=OpenClassrooms" alt="Logo OpenClassrooms" class="h-12 w-auto filter grayscale opacity-70 hover:opacity-100 transition-opacity duration-300">
                     <img src="https://placehold.co/150x50/0C2133/00FFF0?text=Polytechnique" alt="Logo Polytechnique" class="h-12 w-auto filter grayscale opacity-70 hover:opacity-100 transition-opacity duration-300">
@@ -308,19 +195,19 @@
                         <span>Participez à des hackathons stimulants et à des challenges de code.</span>
                     </li>
                     <li class="flex items-start space-x-2">
-                        <i class="fas fa-graduation-cap text-lyx-cyan-accent mt-1"></i>
+                        <i class="fas fa-graduation-cap text-4xl text-lyx-cyan-accent mb-4"></i>
                         <span>Accédez à des cours certifiants, gratuits et payants, sur des plateformes reconnues.</span>
                     </li>
                     <li class="flex items-start space-x-2">
-                        <i class="fas fa-toolbox text-lyx-cyan-accent mt-1"></i>
+                        <i class="fas fa-toolbox text-4xl text-lyx-cyan-accent mb-4"></i>
                         <span>Utilisez une "librairie" d'outils et de logiciels pour développeurs.</span>
                     </li>
                     <li class="flex items-start space-x-2">
-                        <i class="fas fa-users text-lyx-cyan-accent mt-1"></i>
+                        <i class="fas fa-users text-4xl text-lyx-cyan-accent mb-4"></i>
                         <span>Créez ou rejoignez des communautés pour partager vos passions.</span>
                     </li>
                     <li class="flex items-start space-x-2">
-                        <i class="fas fa-handshake text-lyx-cyan-accent mt-1"></i>
+                        <i class="fas fa-handshake text-4xl text-lyx-cyan-accent mb-4"></i>
                         <span>Publiez vos projets et trouvez des personnes pour vous aider à les concrétiser.</span>
                     </li>
                 </ul>
@@ -332,9 +219,241 @@
             </div>
         </section>
 
-        <!-- Section Projets et Événements -->
+        <!--Éditeur de Code Collaboratif -->
+        <section id="code-editor" class="py-20 px-8 lg:px-24 bg-lyx-dark-blue text-center relative">
+            <!-- Nouvelle mascotte centrée juste au-dessus du bloc de l'éditeur de code -->
+            <img src="https://placehold.co/200x200/0A1C3C/00FFF0?text=Mascotte+Code" alt="Mascotte LYX Code" class="mascot hidden lg:block w-40 h-auto absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mascot-float" style="width: 200px; height: 200px; animation-delay: 0s;">
+
+            <h2 class="text-4xl font-bold mb-4 faint-glow-text animate-on-scroll pt-20">Votre Espace de Code Collaboratif</h2>
+            <p class="text-lg text-gray-300 mb-12 max-w-4xl mx-auto animate-on-scroll">
+                Plongez dans un environnement de développement en ligne où la collaboration est simplifiée. Codez, testez et itérez ensemble en temps réel, où que vous soyez.
+            </p>
+            <div class="relative w-full max-w-5xl mx-auto bg-lyx-futuristic-blue rounded-xl shadow-lg p-6 lg:p-12 border-2 border-lyx-cyan-accent overflow-hidden animate-on-scroll">
+                <!-- Placeholder pour le GIF de l'éditeur de code -->
+                <img src="https://placehold.co/800x450/0A1C3C/00FFF0?text=GIF+Editeur+de+Code+Collaboratif" alt="Éditeur de code collaboratif" class="w-full h-auto rounded-lg object-contain">
+                <div class="absolute inset-0 border-4 border-transparent rounded-xl pointer-events-none" style="box-shadow: 0 0 25px rgba(0, 255, 240, 0.4) inset, 0 0 10px rgba(0, 255, 240, 0.2);"></div>
+            </div>
+        </section>
+
+        <!--Jarris IA -->
+        <section id="jarris-ai" class="py-20 px-8 lg:px-24 text-center relative">
+            <!-- Mascotte pour la section Jarris -->
+            <img src="https://placehold.co/200x200/0A1C3C/00FFF0?text=Mascotte+Jarris" alt="Mascotte Jarris AI" class="mascot hidden lg:block w-40 h-auto absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mascot-float" style="width: 200px; height: 200px; animation-delay: 0.3s;">
+
+            <h2 class="text-4xl font-bold mb-4 faint-glow-text animate-on-scroll pt-20">Jarris, Votre Compagnon IA</h2>
+            <p class="text-lg text-gray-300 mb-12 max-w-4xl mx-auto animate-on-scroll">
+                Rencontrez **Jarris**, notre intelligence artificielle dédiée à vous assister dans toutes vos tâches de développement. Que ce soit pour du débogage, de la génération de code, ou pour trouver des solutions, Jarris est là pour accélérer votre workflow.
+            </p>
+            <!-- Bloc pour le GIF/animation de Jarris -->
+            <div class="relative w-full max-w-5xl mx-auto bg-lyx-dark-blue rounded-xl shadow-lg p-6 lg:p-12 border-2 border-lyx-cyan-accent overflow-hidden mb-12 animate-on-scroll">
+                <img src="https://placehold.co/800x450/051021/00FFF0?text=GIF+Jarris+AI" alt="Jarris AI en action" class="w-full h-auto rounded-lg object-contain">
+                <div class="absolute inset-0 border-4 border-transparent rounded-xl pointer-events-none" style="box-shadow: 0 0 25px rgba(0, 255, 240, 0.4) inset, 0 0 10px rgba(0, 255, 240, 0.2);"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 text-left max-w-5xl mx-auto">
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-robot text-4xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Assistance au Codage</h3>
+                    <p class="text-gray-400">Obtenez des suggestions de code, des complétions intelligentes et des corrections en temps réel pour écrire plus vite et sans erreurs.</p>
+                </div>
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-lightbulb text-4xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Génération et Optimisation</h3>
+                    <p class="text-gray-400">Demandez à Jarris de générer des extraits de code complexes ou d'optimiser vos algorithmes existants pour de meilleures performances.</p>
+                </div>
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-question text-4xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Questions & Réponses Instantanées</h3>
+                    <p class="text-gray-400">Besoin d'une explication sur un concept ou une API ? Jarris vous fournit des réponses claires et concises instantanément.</p>
+                </div>
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-puzzle-piece text-4xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Intégration Fluide</h3>
+                    <p class="text-gray-400">Jarris est intégré à votre éditeur de code collaboratif et à d'autres outils LYX pour une expérience utilisateur transparente.</p>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 mt-12 animate-on-scroll">
+                <a href="#" class="w-full sm:w-auto px-8 py-4 font-semibold rounded-full shadow-lg btn-primary">
+                    <span class="flex items-center justify-center">
+                        <i class="fas fa-rocket mr-2"></i> Tester Jarris maintenant
+                    </span>
+                </a>
+                <a href="#" class="w-full sm:w-auto px-8 py-4 font-semibold rounded-full btn-secondary">
+                    <span class="flex items-center justify-center">
+                        <i class="fas fa-info-circle mr-2"></i> En savoir plus sur Jarris
+                    </span>
+                </a>
+            </div>
+        </section>
+        <section id="project-details" class="py-20 px-8 lg:px-24 bg-lyx-futuristic-blue text-center relative">
+            <!-- Mascotte pour la section projets -->
+            <img src="https://placehold.co/200x200/0A1C3C/00FFF0?text=Mascotte+Projets" alt="Mascotte LYX Projets" class="mascot hidden lg:block w-40 h-auto absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mascot-float" style="width: 200px; height: 200px; animation-delay: 0.2s;">
+
+            <h2 class="text-4xl font-bold mb-4 faint-glow-text animate-on-scroll pt-20">Approfondissez Vos Projets</h2>
+            <p class="text-lg text-gray-300 mb-12 max-w-4xl mx-auto animate-on-scroll">
+                Avec LYX, la gestion de vos projets atteint un niveau supérieur. De la conception au déploiement, nous vous offrons les outils pour une collaboration sans faille et une efficacité maximale.
+            </p>
+            <!-- Nouveau bloc pour le GIF de gestion de projet -->
+            <div class="relative w-full max-w-5xl mx-auto bg-lyx-dark-blue rounded-xl shadow-lg p-6 lg:p-12 border-2 border-lyx-cyan-accent overflow-hidden mb-12 animate-on-scroll">
+                <img src="https://placehold.co/800x450/051021/00FFF0?text=GIF+Gestion+Projet" alt="Gestion de projet collaborative" class="w-full h-auto rounded-lg object-contain">
+                <div class="absolute inset-0 border-4 border-transparent rounded-xl pointer-events-none" style="box-shadow: 0 0 25px rgba(0, 255, 240, 0.4) inset, 0 0 10px rgba(0, 255, 240, 0.2);"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 text-left max-w-5xl mx-auto">
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-code-branch text-4xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Contrôle de Version Intégré</h3>
+                    <p class="text-gray-400">Gérez vos branches, fusions et historiques de code avec un système de contrôle de version robuste, intégré directement à votre environnement de travail.</p>
+                </div>
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-bug text-4xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Suivi des Problèmes et Tâches</h3>
+                    <p class="text-gray-400">Ne perdez jamais le fil. Un système de suivi des problèmes et des tâches intuitif pour organiser votre travail et celui de votre équipe.</p>
+                </div>
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-comments text-4xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Revues de Code Facilitées</h3>
+                    <p class="text-gray-400">Améliorez la qualité de votre code grâce à des outils de revue intégrés, permettant des retours clairs et une collaboration constructive.</p>
+                </div>
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Intégration et Déploiement Continus</h3>
+                    <p class="text-gray-400">Automatisez vos processus de build, de test et de déploiement pour livrer vos projets plus rapidement et en toute confiance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!--Carrières et Opportunités -->
+        <section id="career-opportunities" class="py-20 px-8 lg:px-24 bg-lyx-dark-blue text-center relative">
+            <!-- Mascotte pour la section carrières -->
+            <img src="https://placehold.co/200x200/0A1C3C/00FFF0?text=Mascotte+Carrières" alt="Mascotte LYX Carrières" class="mascot hidden lg:block w-40 h-auto absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mascot-float" style="width: 200px; height: 200px; animation-delay: 0.4s;">
+
+            <h2 class="text-4xl font-bold mb-4 faint-glow-text animate-on-scroll pt-20">Carrières et Opportunités</h2>
+            <p class="text-lg text-gray-300 mb-12 max-w-4xl mx-auto animate-on-scroll">
+                Débloquez votre potentiel de carrière. LYX vous connecte aux meilleures entreprises et aux missions freelance les plus stimulantes. Votre prochain défi commence ici.
+            </p>
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-lyx-futuristic-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-briefcase text-5xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Offres d'Emploi Exclusives</h3>
+                    <p class="text-gray-400 mb-4">Accédez à un tableau d'offres d'emploi triées sur le volet, issues de nos entreprises partenaires. Trouvez le poste qui correspond à vos ambitions.</p>
+                    <a href="#" class="inline-block px-6 py-3 font-semibold rounded-full shadow-lg btn-secondary">
+                        <span class="flex items-center justify-center">
+                            <i class="fas fa-search mr-2"></i> Voir les offres
+                        </span>
+                    </a>
+                </div>
+                <div class="bg-lyx-futuristic-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-user-tie text-5xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Missions Freelance</h3>
+                    <p class="text-gray-400 mb-4">Trouvez des missions freelance adaptées à vos compétences et développez votre portfolio tout en travaillant sur des projets variés.</p>
+                    <a href="#" class="inline-block px-6 py-3 font-semibold rounded-full btn-secondary">
+                        <span class="flex items-center justify-center">
+                            <i class="fas fa-hand-holding-usd mr-2"></i> Trouver une mission
+                        </span>
+                    </a>
+                </div>
+                <div class="bg-lyx-futuristic-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-chart-line text-5xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Développement Professionnel</h3>
+                    <p class="text-gray-400 mb-4">Bénéficiez de ressources pour affiner votre CV, préparer vos entretiens et naviguer dans le monde de l'emploi tech.</p>
+                    <a href="#" class="inline-block px-6 py-3 font-semibold rounded-full btn-secondary">
+                        <span class="flex items-center justify-center">
+                            <i class="fas fa-book-reader mr-2"></i> Accéder aux ressources
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog & Actualités Tech -->
+        <section id="blog-news" class="py-20 px-8 lg:px-24 bg-lyx-futuristic-blue text-center relative">
+            <!-- Mascotte pour la section blog -->
+            <img src="https://placehold.co/200x200/0A1C3C/00FFF0?text=Mascotte+Blog" alt="Mascotte LYX Blog" class="mascot hidden lg:block w-40 h-auto absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mascot-float" style="width: 200px; height: 200px; animation-delay: 0.6s;">
+
+            <h2 class="text-4xl font-bold mb-4 faint-glow-text animate-on-scroll pt-20">Blog & Actualités Tech</h2>
+            <p class="text-lg text-gray-300 mb-12 max-w-4xl mx-auto animate-on-scroll">
+                Restez à la pointe de la technologie. Notre blog vous offre des analyses approfondies, des tutoriels pratiques et les dernières nouvelles du monde du développement.
+            </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg text-left animate-on-scroll">
+                    <img src="https://placehold.co/400x250/0A1C3C/00FFF0?text=Article+1" alt="Image Article 1" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-semibold mb-2 faint-glow-text">Les Tendances du Développement Web en 2025</h3>
+                    <p class="text-gray-400 text-sm mb-4">Découvrez les frameworks, les pratiques et les technologies qui domineront le web cette année.</p>
+                    <a href="#" class="text-lyx-cyan-accent hover:underline text-sm font-semibold">Lire l'article <i class="fas fa-arrow-right ml-1 text-xs"></i></a>
+                </div>
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg text-left animate-on-scroll">
+                    <img src="https://placehold.co/400x250/0A1C3C/00FFF0?text=Article+2" alt="Image Article 2" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-semibold mb-2 faint-glow-text">Introduction à l'IA Générative avec Python</h3>
+                    <p class="text-gray-400 text-sm mb-4">Un guide pas à pas pour créer vos premiers modèles d'IA générative.</p>
+                    <a href="#" class="text-lyx-cyan-accent hover:underline text-sm font-semibold">Lire l'article <i class="fas fa-arrow-right ml-1 text-xs"></i></a>
+                </div>
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg text-left animate-on-scroll">
+                    <img src="https://placehold.co/400x250/0A1C3C/00FFF0?text=Article+3" alt="Image Article 3" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-semibold mb-2 faint-glow-text">Optimisation des Performances React : Astuces et Bonnes Pratiques</h3>
+                    <p class="text-gray-400 text-sm mb-4">Rendez vos applications React plus rapides et plus fluides grâce à nos conseils d'experts.</p>
+                    <a href="#" class="text-lyx-cyan-accent hover:underline text-sm font-semibold">Lire l'article <i class="fas fa-arrow-right ml-1 text-xs"></i></a>
+                </div>
+            </div>
+            <a href="#" class="inline-block mt-12 px-8 py-4 font-semibold rounded-full shadow-lg btn-secondary">
+                <span class="flex items-center justify-center">
+                    <i class="fas fa-book-open mr-2"></i> Voir tous les articles
+                </span>
+            </a>
+        </section>
+
+
+        <!--Versions de l'Application -->
+        <section id="app-versions" class="py-20 px-8 lg:px-24 bg-lyx-futuristic-blue text-center relative">
+            <h2 class="text-4xl font-bold mb-4 faint-glow-text animate-on-scroll">Téléchargez l'Application LYX</h2>
+            <p class="text-lg text-gray-300 mb-12 max-w-4xl mx-auto animate-on-scroll">
+                Accédez à la puissance de la communauté LYX sur votre plateforme préférée. De nouvelles versions sont régulièrement déployées pour toujours plus de fonctionnalités et une expérience optimale.
+            </p>
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fab fa-google-play text-5xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Android (Play Store)</h3>
+                    <p class="text-gray-400 mb-4">
+                        Téléchargez l'application LYX dès maintenant sur le Google Play Store pour votre appareil Android.
+                    </p>
+                    <a href="#" class="inline-block px-6 py-3 font-semibold rounded-full shadow-lg btn-primary">
+                        <span class="flex items-center justify-center">
+                            <i class="fas fa-download mr-2"></i> Télécharger sur Play Store
+                        </span>
+                    </a>
+                </div>
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fab fa-apple text-5xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">iOS (App Store)</h3>
+                    <p class="text-gray-400 mb-4">
+                        Bientôt disponible sur l'Apple App Store pour iPhone et iPad. Restez informé de la sortie !
+                    </p>
+                    <a href="#" class="inline-block px-6 py-3 font-semibold rounded-full btn-secondary">
+                        <span class="flex items-center justify-center">
+                            <i class="fas fa-bell mr-2"></i> Me prévenir
+                        </span>
+                    </a>
+                </div>
+                <div class="bg-lyx-dark-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-desktop text-5xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Windows/macOS (À venir)</h3>
+                    <p class="text-gray-400 mb-4">
+                        Nous travaillons sur une version desktop pour Windows et macOS. Préparez-vous à une expérience encore plus immersive.
+                    </p>
+                    <a href="#" class="inline-block px-6 py-3 font-semibold rounded-full btn-secondary">
+                        <span class="flex items-center justify-center">
+                            <i class="fas fa-laptop-code mr-2"></i> En savoir plus
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!--Projets et Événements -->
         <section id="projects" class="py-20 px-8 lg:px-24 text-center relative">
-            <h2 class="text-4xl font-bold mb-4 faint-glow-text relative z-10 animate-on-scroll">Nos Projets et Événements</h2>
+            <!-- Mascotte pour la section projets et événements -->
+            <img src="https://placehold.co/200x200/0A1C3C/00FFF0?text=Mascotte+Events" alt="Mascotte LYX Événements" class="mascot hidden lg:block w-40 h-auto absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mascot-float" style="width: 200px; height: 200px; animation-delay: 0.8s;">
+
+            <h2 class="text-4xl font-bold mb-4 faint-glow-text relative z-10 animate-on-scroll pt-20">Nos Projets et Événements</h2>
             <p class="text-lg text-gray-300 mb-12 max-w-4xl mx-auto relative z-10 animate-on-scroll">
                 Découvrez les dernières créations de notre communauté et les opportunités d'apprentissage qui vous attendent.
             </p>
@@ -369,60 +488,88 @@
             </div>
         </section>
 
+        <!-- Nouvelle Section: Centre d'Aide & Support -->
+        <section id="help-center" class="py-20 px-8 lg:px-24 bg-lyx-dark-blue text-center relative">
+            <h2 class="text-4xl font-bold mb-4 faint-glow-text animate-on-scroll">Centre d'Aide & Support</h2>
+            <p class="text-lg text-gray-300 mb-12 max-w-4xl mx-auto animate-on-scroll">
+                Besoin d'aide ? Notre centre de support est là pour vous accompagner. Trouvez des réponses à vos questions, explorez notre documentation ou contactez notre équipe.
+            </p>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-lyx-futuristic-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-question-circle text-5xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Foire Aux Questions (FAQ)</h3>
+                    <p class="text-gray-400 mb-4">Consultez notre FAQ pour les réponses aux questions les plus fréquentes sur LYX et ses fonctionnalités.</p>
+                    <a href="#" class="inline-block px-6 py-3 font-semibold rounded-full btn-secondary">
+                        <span class="flex items-center justify-center">
+                            <i class="fas fa-search mr-2"></i> Accéder à la FAQ
+                        </span>
+                    </a>
+                </div>
+                <div class="bg-lyx-futuristic-blue p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <i class="fas fa-headset text-5xl text-lyx-cyan-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2 faint-glow-text">Contactez le Support</h3>
+                    <p class="text-gray-400 mb-4">Notre équipe est disponible pour vous aider en cas de problème ou pour répondre à vos questions spécifiques.</p>
+                    <a href="#" class="inline-block px-6 py-3 font-semibold rounded-full btn-primary">
+                        <span class="flex items-center justify-center">
+                            <i class="fas fa-envelope mr-2"></i> Envoyer un message
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
         <section id="contact" class="py-20 px-8 lg:px-24 text-center bg-lyx-dark-blue relative">
             <h2 class="text-4xl font-bold mb-4 faint-glow-text relative z-10 animate-on-scroll">Rejoignez notre matrice !</h2>
             <p class="text-lg text-gray-300 mb-8 max-w-4xl mx-auto relative z-10 animate-on-scroll">
                 Ne restez pas seul, rejoignez la communauté qui va révolutionner la tech.
             </p>
-            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 relative z-10 animate-on-scroll">
-                <a href="#" class="w-full md:w-auto px-8 py-4 bg-lyx-cyan-accent text-lyx-futuristic-blue font-semibold rounded-full shadow-lg transition-all duration-300 btn-primary">
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 relative z-10 animate-on-scroll">
+                <a href="#" class="w-full sm:w-auto px-8 py-4 bg-lyx-cyan-accent text-lyx-futuristic-blue font-semibold rounded-full shadow-lg transition-all duration-300 btn-primary">
                     <span class="flex items-center justify-center">
                         <i class="fab fa-discord mr-2"></i>
                         Rejoindre le Discord
                     </span>
                 </a>
-                <a href="#" class="w-full md:w-auto px-8 py-4 bg-transparent border-2 border-lyx-cyan-accent text-lyx-cyan-accent font-semibold rounded-full transition-all duration-300 btn-secondary" id="download">
-                    <span class="flex items-center justify-center">
-                        <i class="fas fa-download mr-2"></i>
-                        Télécharger l'application
-                    </span>
-                </a>
+                <a href="#app-versions" class="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-lyx-cyan-accent text-lyx-cyan-accent font-semibold rounded-full transition-all duration-300 btn-secondary">
+                        <span class="flex items-center justify-center">
+                            <i class="fas fa-download mr-2"></i>
+                            Télécharger l'application
+                        </span>
+                    </a>
             </div>
-            <!-- Nouvelle mascotte en bas à droite de la section contact -->
-            <!-- REMPLACEZ LA SOURCE (src) CI-DESSOUS PAR L'URL DE VOTRE GIF -->
-            <img src="https://placehold.co/200x300/0A1C3C/00FFF0?text=Mascotte+3+(GIF)" alt="Mascotte LYX" class="absolute hidden lg:block w-40 h-auto bottom-10 right-20 opacity-60 mascot-float" style="animation-delay: 1s;">
+            <!-- Mascotte 3 en bas à droite de la section contact -->
+            <img src="https://placehold.co/200x300/0A1C3C/00FFF0?text=Mascotte+3+(Contact)" alt="Mascotte LYX Contact" class="mascot hidden lg:block w-40 h-auto bottom-10 right-20 mascot-float" style="width: 200px; height: 300px; animation-delay: 1s;">
         </section>
 
         <footer class="bg-black text-gray-400 py-12 px-8 lg:px-24">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-left">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-left">
+                <!-- Colonne 1: Logo et Description -->
                 <div>
                     <div class="flex items-center space-x-2 mb-4">
-                        <!-- Espace réservé pour votre logo. Remplacez l'URL par l'adresse de votre logo. -->
                         <img src="https://placehold.co/100x40/0A1C3C/00FFF0?text=YOUR+LOGO" alt="Votre logo" class="h-8 w-auto">
                     </div>
                     <p class="text-sm">La communauté mondiale des développeurs, pour construire ensemble les technologies de demain.</p>
                 </div>
+                <!-- Colonne 2: Explorer LYX (Navigation & Ressources) -->
                 <div>
-                    <h4 class="font-semibold text-white mb-4">Navigation</h4>
+                    <h4 class="font-semibold text-white mb-4">Explorez LYX</h4>
                     <ul class="space-y-2">
                         <li><a href="#about" class="hover:text-lyx-cyan-accent transition-colors duration-300">À propos</a></li>
-                        <li><a href="#app-features" class="hover:text-lyx-cyan-accent transition-colors duration-300">Notre Écosystème</a></li>
-                        <li><a href="#app-showcase" class="hover:text-lyx-cyan-accent transition-colors duration-300">L'Application</a></li>
-                        <li><a href="#partners" class="hover:text-lyx-cyan-accent transition-colors duration-300">Partenaires</a></li>
+                        <li><a href="#app-features" class="hover:text-lyx-cyan-accent transition-colors duration-300">L'Application</a></li>
+                        <li><a href="#jarris-ai" class="hover:text-lyx-cyan-accent transition-colors duration-300">Jarris, votre IA</a></li>
+                        <li><a href="#project-details" class="hover:text-lyx-cyan-accent transition-colors duration-300">Gestion de Projets</a></li>
+                        <li><a href="#career-opportunities" class="hover:text-lyx-cyan-accent transition-colors duration-300">Carrières & Emploi</a></li>
+                        <li><a href="#blog-news" class="hover:text-lyx-cyan-accent transition-colors duration-300">Blog & Actualités</a></li>
+                        <li><a href="#app-versions" class="hover:text-lyx-cyan-accent transition-colors duration-300">Téléchargements</a></li>
                         <li><a href="#projects" class="hover:text-lyx-cyan-accent transition-colors duration-300">Projets & Événements</a></li>
+                        <li><a href="#help-center" class="hover:text-lyx-cyan-accent transition-colors duration-300">Centre d'Aide</a></li>
+                        <li><a href="#partners" class="hover:text-lyx-cyan-accent transition-colors duration-300">Nos Partenaires</a></li>
                     </ul>
                 </div>
+                <!-- Colonne 3: Connectez-vous (Suivi & Contact) -->
                 <div>
-                    <h4 class="font-semibold text-white mb-4">Ressources</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-lyx-cyan-accent transition-colors duration-300">Hackathons</a></li>
-                        <li><a href="#" class="hover:text-lyx-cyan-accent transition-colors duration-300">Cours</a></li>
-                        <li><a href="#" class="hover:text-lyx-cyan-accent transition-colors duration-300">Librairie Logiciels</a></li>
-                        <li><a href="#" class="hover:text-lyx-cyan-accent transition-colors duration-300">Carrières</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-white mb-4">Suivez-nous</h4>
+                    <h4 class="font-semibold text-white mb-4">Connectez-vous</h4>
                     <div class="flex space-x-4 mb-4 text-xl">
                         <a href="#" class="hover:text-lyx-cyan-accent transition-colors duration-300"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="hover:text-lyx-cyan-accent transition-colors duration-300"><i class="fab fa-github"></i></a>
@@ -431,6 +578,7 @@
                     </div>
                     <h4 class="font-semibold text-white mb-2">Contact</h4>
                     <p class="text-sm">contact@lyxdev.com</p>
+                    <p class="text-sm mt-2">Rejoignez-nous sur <a href="#contact" class="text-lyx-cyan-accent hover:underline">Discord</a></p>
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-6 text-center">
@@ -528,11 +676,15 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target); // Stop observing once it's visible
+                        // No need to unobserve if we want the animation to re-trigger on scroll back and forth
+                        // observer.unobserve(entry.target); 
+                    } else {
+                        // Optionally remove 'is-visible' when element leaves viewport
+                        // entry.target.classList.remove('is-visible');
                     }
                 });
             }, {
-                threshold: 0.2
+                threshold: 0.2 // Trigger when 20% of the element is visible
             });
 
             document.querySelectorAll('.animate-on-scroll').forEach(element => {
@@ -556,8 +708,8 @@
             closeMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.add('translate-x-full');
                 setTimeout(() => {
-                    mobileMenu.classList.add('hidden');
-                }, 300);
+                        mobileMenu.classList.add('hidden');
+                    }, 300);
             });
 
             mobileMenuLinks.forEach(link => {
