@@ -15,10 +15,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Script pour les animations Lottie (dotLottie Web Component) - Gardé pour un usage futur si besoin -->
     <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
-    <link rel="stylesheet" href="styles.css">
+  
 </head>
-<body>
-    <styles>
+
+    <style>
         
         /* Définition des couleurs principales et des animations */
         :root {
@@ -146,8 +146,9 @@
         #projects {
             background: radial-gradient(ellipse at center, rgba(0, 255, 240, 0.05) 0%, rgba(5, 16, 33, 0.8) 70%, var(--lyx-futuristic-blue) 100%);
         }
-    </styles>
-       
+     
+    </style>
+    <body>   
 
     <!-- Canvas pour l'animation Three.js en arrière-plan -->
     <canvas id="three-canvas"></canvas>
@@ -896,4 +897,5 @@
     </script>
 </body>
 </html>
+
 
